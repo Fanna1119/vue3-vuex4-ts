@@ -5,6 +5,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import NotFound from '../views/NotFound.vue';
+import Projects from '../views/Projects.vue'
 
 
 
@@ -24,6 +25,11 @@ const routes = [
       name: "NotFound",
       component: NotFound,
     },
+    {
+      path: "/projects/:projectId",
+      name: "projects",
+      component: Projects
+    }
   ];
   
   const router = createRouter({

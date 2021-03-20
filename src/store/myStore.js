@@ -4,8 +4,10 @@ import { useStorage } from '@vueuse/core';
 const store = new Fuex.Store({
     state: {
         // projects: [],
-        selectedProject: '',
-        projects: useStorage('projects2', [
+        selectedProject: useStorage('selectproject', [
+        ]),
+        
+        projects: useStorage('projects', [
         ])
     },
     mutations: {

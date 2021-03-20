@@ -8,7 +8,7 @@
   </div>
   <div v-else>
     no project has been created yet,
-    <p-g :openDialog="true" />
+    <p-g :dialogVisible="true" />
   </div>
   <button @click="deleteme">delete</button>
 </template>
@@ -29,5 +29,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.el-dialog {
+  border-radius: 10rem;
+  box-shadow: none;
+
+}
 </style>

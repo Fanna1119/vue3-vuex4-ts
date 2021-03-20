@@ -1,47 +1,36 @@
-
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    class="el-menu-demo"
-    mode="horizontal"
-    @select="handleSelect"
-  >
-    <el-menu-item index="1">Processing Center</el-menu-item>
-    <el-submenu index="2">
-      <template #title>Workspace</template>
-      <el-menu-item index="2-1">item one</el-menu-item>
-      <el-menu-item index="2-2">item two</el-menu-item>
-      <el-menu-item index="2-3">item three</el-menu-item>
-      <el-submenu index="2-4">
-        <template #title>item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
-      </el-submenu>
-    </el-submenu>
-    <el-menu-item index="3" disabled>Info</el-menu-item>
-    <el-menu-item index="4"
-      ><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item
-    >
-  </el-menu>
-  <div class="line"></div>
+  <div class="box-card">
+    <div class="card-header">
+      <span>
+        <el-button type="primary" icon="el-icon-s-grid"></el-button>
+      </span>
+      <el-button class="button" type="text">Operation button</el-button>
+      <el-button class="button" type="text">Operation button</el-button>
+      <el-button class="button" type="text">Operation button</el-button>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      activeIndex: "1",
-      activeIndex2: "1",
-    };
-  },
-  methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
-};
-</script>
-
 <style>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 100%;
+}
+
+.icon-size {
+  font-size: 25px;
+}
 </style>
