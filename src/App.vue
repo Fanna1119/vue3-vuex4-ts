@@ -1,19 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link :to="{ name: 'Home' }">Home</router-link> |
-    <router-link :to="{ name: 'About' }">About</router-link>
-    <router-link to="/fuck">error</router-link>
-  </div>
-  <router-view />
-  <div></div>
+  <el-container>
+    <el-header><nav-bar /></el-header>
+    <el-main><router-view /></el-main>
+    <el-footer>Footer</el-footer>
+  </el-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useState, useMutations, useActions, useGetters } from "./helpers";
+<script>
+import Navbar from "./components/Navbar.vue";
+import TodoList from "./components/TodoList.vue";
+import { defineComponent, inject, ref } from "vue";
+import { nanoid } from "nanoid";
 export default defineComponent({
   name: "App",
-  components: {},
+  components: {
+    "todo-list": TodoList,
+    "nav-bar": Navbar,
+  },
   setup() {
     return {};
   },
@@ -25,8 +28,5 @@ export default defineComponent({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
