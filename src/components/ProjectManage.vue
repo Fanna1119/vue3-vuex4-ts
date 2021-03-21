@@ -1,9 +1,11 @@
 <template>
   <el-dialog
+    ref="dialogform"
     :fullscreen="isMobile"
     title="Create New Project"
-    v-model="dialogVisible"
-    width="35%"
+    v-model="open"
+    width="45%"
+    @close="closed"
   >
     <el-form
       :model="ruleForm"
@@ -46,17 +48,21 @@
 </template>
 
 <script>
-import { inject, reactive, ref, computed } from "vue";
+import { inject, reactive, ref, computed, watch } from "vue";
 import { useWindowSize } from "@vueuse/core";
 import { nanoid } from "nanoid";
-
+import { useRouter, useRoute } from "vue-router";
 export default {
   props: {
-    dialogOn: {
-      default: false,
-    },
+    open: {},
   },
-  setup(props) {
+  emits: ["close"],
+
+  setup(props, { emit }) {
+    const router = useRouter();
+
+    const closed = () => emit("close", false);
+
     const { width } = useWindowSize();
 
     const isMobile = computed(() => (width.value < 720 ? true : false));
@@ -64,11 +70,6 @@ export default {
     const store = inject("store");
 
     const settings = inject("settings");
-
-    const dialogVisible = computed({
-      get: () => props.dialogOn,
-      set: () => settings.commit("setDialog"),
-    });
 
     const myform = ref();
     const ruleForm = reactive({
@@ -107,20 +108,26 @@ export default {
       ],
     });
 
+    let newProject = {
+      project_id: nanoid(),
+      project_name: ruleForm.name,
+      project_description: ruleForm.desc,
+      created: new Date(),
+      due_date: ruleForm.date1,
+      todos: [],
+    };
+
     const createProject = () =>
       store.commit("AddProject", {
-        project_id: nanoid(),
-        project_name: ruleForm.name,
-        project_description: ruleForm.desc,
-        created: new Date(),
-        due_date: ruleForm.date1,
-        todos: [],
+        newProject,
       });
 
     const submitForm = () => {
       myform.value.validate((valid) => {
         if (valid) {
           createProject();
+          resetForm();
+          router.push({ path: `/projects/${newProject.project_id}` });
         } else {
           return false;
         }
@@ -138,7 +145,7 @@ export default {
       submitForm,
       resetForm,
       isMobile,
-      dialogVisible,
+      closed,
     };
   },
 };

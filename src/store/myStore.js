@@ -27,6 +27,13 @@ const store = new Fuex.Store({
 
         projectsEmpty: (state) => state.projects.length <= 0,
 
+        projectsNames: (state) => state.projects.map((item) => (
+            {
+                project_id: item.project_id,
+                project_name: item.project_name
+            }
+        )),
+
         getAllProjects: (state) => state.projects,
 
         selectedProject: (state) => state.projects.find(x => x.id === state.selectedProject),

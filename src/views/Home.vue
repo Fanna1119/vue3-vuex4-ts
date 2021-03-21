@@ -5,32 +5,43 @@
     <div v-for="i in getall">
       {{ i }}
     </div>
+    <!-- if non , no project, if first set to first, then compute to selected -->
   </div>
   <div v-else>
-    no project has been created yet,
-    <p-g :dialogOn="dialogvalue" />
+    <el-empty
+      description="No Project Has been Created yet. Create one To get Started"
+    >
+      <el-button @click="openme = !openme" type="primary" icon="el-icon-search"
+        >Create A Project</el-button
+      >
+    </el-empty>
   </div>
+  <p-g :open="openme" @closed="openme = !openme" />
+
   <button @click="deleteme">delete</button>
+  <button @click="openme = !openme">open</button>
 </template>
 
 <script>
-import { inject, computed } from "vue";
+import { useRouter, useRoute } from 'vue-router'
+import { inject, computed, ref } from "vue";
 import ProjectManage from "../components/ProjectManage.vue";
+
 export default {
   components: {
     "p-g": ProjectManage,
   },
   setup() {
+    const openme = ref(true);
+
     const store = inject("store");
     const settings = inject("settings");
 
-    const dialogvalue = computed(() => settings.getters.getDialog);
-    
     const getall = computed(() => store.getters.emptyOrGetProjects);
 
     const deleteme = () => store.commit("deleteProject", 0);
 
-    return { getall, deleteme, dialogvalue };
+    return { getall, deleteme, openme };
   },
 };
 </script>
