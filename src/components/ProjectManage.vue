@@ -3,7 +3,7 @@
     :fullscreen="isMobile"
     title="Create New Project"
     v-model="dialogVisible"
-    width="50%"
+    width="35%"
   >
     <el-form
       :model="ruleForm"
@@ -52,20 +52,25 @@ import { nanoid } from "nanoid";
 
 export default {
   props: {
-    dialogVisible: {
+    dialogOn: {
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const { width } = useWindowSize();
 
     const isMobile = computed(() => (width.value < 720 ? true : false));
 
     const store = inject("store");
-    // const dialogVisible = ref(true);
+
+    const settings = inject("settings");
+
+    const dialogVisible = computed({
+      get: () => props.dialogOn,
+      set: () => settings.commit("setDialog"),
+    });
 
     const myform = ref();
-
     const ruleForm = reactive({
       name: "",
       date1: "",
@@ -132,25 +137,9 @@ export default {
       myform,
       submitForm,
       resetForm,
-      // dialogVisible,
       isMobile,
+      dialogVisible,
     };
-  },
-  methods: {
-    // submitForm(formName) {
-    //   this.$refs[formName].validate((valid) => {
-    //     if (valid) {
-    //       alert("submit!");
-    //       console.log(this.store);
-    //     } else {
-    //       console.log("error submit!!");
-    //       return false;
-    //     }
-    //   });
-    // },
-    // resetForm(formName) {
-    //   this.$refs[formName].resetFields();
-    // },
   },
 };
 </script>

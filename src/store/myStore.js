@@ -3,12 +3,11 @@ import { useStorage } from '@vueuse/core';
 
 const store = new Fuex.Store({
     state: {
-        // projects: [],
         selectedProject: useStorage('selectproject', [
         ]),
-        
+
         projects: useStorage('projects', [
-        ])
+        ]),
     },
     mutations: {
         AddProject(state, payload) {
@@ -16,7 +15,8 @@ const store = new Fuex.Store({
         },
         deleteProject(state, index) {
             state.projects.splice(index, 1)
-        }
+        },
+
     },
     actions: {
 

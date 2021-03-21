@@ -8,7 +8,7 @@
   </div>
   <div v-else>
     no project has been created yet,
-    <p-g :dialogVisible="true" />
+    <p-g :dialogOn="dialogvalue" />
   </div>
   <button @click="deleteme">delete</button>
 </template>
@@ -22,9 +22,15 @@ export default {
   },
   setup() {
     const store = inject("store");
+    const settings = inject("settings");
+
+    const dialogvalue = computed(() => settings.getters.getDialog);
+    
     const getall = computed(() => store.getters.emptyOrGetProjects);
+
     const deleteme = () => store.commit("deleteProject", 0);
-    return { getall, deleteme };
+
+    return { getall, deleteme, dialogvalue };
   },
 };
 </script>
@@ -33,6 +39,5 @@ export default {
 .el-dialog {
   border-radius: 10rem;
   box-shadow: none;
-
 }
 </style>

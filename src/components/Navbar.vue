@@ -2,7 +2,11 @@
   <div class="box-card">
     <div class="card-header">
       <span>
-        <el-button type="primary" icon="el-icon-s-grid"></el-button>
+        <el-button
+        @click="open"
+          type="primary"
+          icon="el-icon-s-grid"
+        ></el-button>
       </span>
       <el-button class="button" type="text">Operation button</el-button>
       <el-button class="button" type="text">Operation button</el-button>
@@ -10,6 +14,24 @@
     </div>
   </div>
 </template>
+
+
+<script>
+import { computed, inject } from "vue";
+
+export default {
+  setup() {
+    const settings = inject("settings")
+    
+    const open = () => settings.commit("setDialog")
+
+    console.log(settings.state)
+  
+    return { open};
+  },
+};
+</script>
+
 
 <style>
 .card-header {
